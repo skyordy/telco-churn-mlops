@@ -29,17 +29,17 @@ flowchart LR
   classDef app fill:#FFD54F,stroke:#F57F17,color:#000000;
   classDef user fill:#E57373,stroke:#C62828,color:#ffffff;
 
-  subgraph PREP[Preprocesamiento y Validación]
-    A[CSV / Datos]:::data --> B[Validación y EDA]:::process
-    B --> C[Preprocesamiento num/cat/txt]:::process
+  subgraph PREP["Preprocesamiento y Validacion"]
+    A["CSV / Datos"]:::data --> B["Validacion y EDA"]:::process
+    B --> C["Preprocesamiento num/cat/txt"]:::process
   end
 
-  subgraph TRAIN[Entrenamiento y Modelo]
-    C --> D[Entrenamiento (CV + métricas)]:::model
-    D --> E[Serialización model.joblib]:::model
+  subgraph TRAIN["Entrenamiento y Modelo"]
+    C --> D["Entrenamiento CV + metricas"]:::model
+    D --> E["Serializacion model.joblib"]:::model
   end
 
-  subgraph DEPLOY[Despliegue]
-    E --> F[Streamlit app.py]:::app
-    F --> G[ngrok / Usuario web]:::user
+  subgraph DEPLOY["Despliegue"]
+    E --> F["Streamlit app.py"]:::app
+    F --> G["ngrok / Usuario web"]:::user
   end
