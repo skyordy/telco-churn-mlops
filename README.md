@@ -43,3 +43,31 @@ flowchart LR
     C --> D["Entrenamiento CV + metricas"]:::model
     D --> E["Serializacion model.joblib"]:::model
   end
+```
+
+---
+
+## 4. Instalación y entorno
+
+Se recomienda trabajar en un **entorno virtual** (Conda o venv).
+
+### Opción 1 – Usando Conda
+```bash
+# Crear y activar entorno
+conda create -n telcochurn python=3.10 -y
+conda activate telcochurn
+
+# Instalar dependencias
+pip install -r requirements.txt
+```
+
+### Opción 2 – Usando venv
+```bash
+# Crear y activar entorno
+python -m venv .venv
+source .venv/bin/activate   # Mac/Linux
+.venv\Scripts\activate      # Windows
+
+# Instalar dependencias
+pip install -r requirements.txt
+```
