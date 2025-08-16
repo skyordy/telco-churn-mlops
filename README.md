@@ -22,27 +22,24 @@ Reducir el **churn** prediciendo qué clientes tienen mayor probabilidad de dars
 
 ```mermaid
 flowchart LR
-    %% Estilos por color
-    classDef data fill=#4DB6AC,stroke=#00695C,color=white;
-    classDef process fill=#64B5F6,stroke=#1565C0,color=white;
-    classDef model fill=#81C784,stroke=#2E7D32,color=white;
-    classDef app fill=#FFD54F,stroke=#F57F17,color=black;
-    classDef user fill=#E57373,stroke=#C62828,color=white;
+  %% Estilos
+  classDef data fill:#4DB6AC,stroke:#00695C,color:#ffffff;
+  classDef process fill:#64B5F6,stroke:#1565C0,color:#ffffff;
+  classDef model fill:#81C784,stroke:#2E7D32,color:#ffffff;
+  classDef app fill:#FFD54F,stroke:#F57F17,color:#000000;
+  classDef user fill:#E57373,stroke:#C62828,color:#ffffff;
 
-    subgraph PREP[Preprocesamiento & Validación]
-        A[📂 CSV / Datos]:::data --> B[🔎 Validación & EDA]:::process
-        B --> C[⚙️ Preprocesamiento num/cat/txt]:::process
-    end
+  subgraph PREP[Preprocesamiento y Validación]
+    A[CSV / Datos]:::data --> B[Validación y EDA]:::process
+    B --> C[Preprocesamiento num/cat/txt]:::process
+  end
 
-    subgraph TRAIN[Entrenamiento & Modelo]
-        C --> D[🤖 Entrenamiento CV + métricas]:::model
-        D --> E[💾 Serialización model.joblib]:::model
-    end
+  subgraph TRAIN[Entrenamiento y Modelo]
+    C --> D[Entrenamiento (CV + métricas)]:::model
+    D --> E[Serialización model.joblib]:::model
+  end
 
-    subgraph DEPLOY[Despliegue]
-        E --> F[🌐 Streamlit app.py]:::app
-        F --> G[🖥️ Usuario (via ngrok/web)]:::user
-    end
-
-
-
+  subgraph DEPLOY[Despliegue]
+    E --> F[Streamlit app.py]:::app
+    F --> G[ngrok / Usuario web]:::user
+  end
