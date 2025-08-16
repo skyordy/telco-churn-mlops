@@ -6,9 +6,13 @@ Este repositorio muestra un caso completo de **predicción de churn en telecomun
 - **App Streamlit (`app.py`)**: formulario con las mismas features del entrenamiento, probabilidad y decisión con **umbral ajustable**, y recomendaciones de negocio.
 - **Deploy temporal con ngrok**: publicación rápida desde Colab.
 
+---
+
 ## 1. Problema de negocio
 Reducir el **churn** prediciendo qué clientes tienen mayor probabilidad de darse de baja y habilitar acciones de retención (ofertas, mejoras de servicio, etc.).  
 **KPI**: F1 / AUC (clasificación binaria), tasa de retención.
+
+---
 
 ## 2. Datos
 - ~1.5k filas, ~19 columnas (numéricas, categóricas, fechas y texto corto `nps_text`).
@@ -18,11 +22,12 @@ Reducir el **churn** prediciendo qué clientes tienen mayor probabilidad de dars
 
 > Si no incluyes el CSV aquí, el notebook puede **generarlo** o bien cargar desde un archivo subido en Colab.
 
+---
+
 ## 3. Arquitectura (alto nivel)
 
 ```mermaid
 flowchart LR
-  %% Estilos
   classDef data fill:#4DB6AC,stroke:#00695C,color:#ffffff;
   classDef process fill:#64B5F6,stroke:#1565C0,color:#ffffff;
   classDef model fill:#81C784,stroke:#2E7D32,color:#ffffff;
@@ -39,7 +44,63 @@ flowchart LR
     D --> E["Serializacion model.joblib"]:::model
   end
 
-  subgraph DEPLOY["Despliegue"]
-    E --> F["Streamlit app.py"]:::app
-    F --> G["ngrok / Usuario web"]:::user
+  subgraph APP["App y Deploy"]
+    E --> F["App Streamlit"]:::app
+    F --> G["Usuario Final"]:::user
   end
+
+4. Instalación y entorno
+
+Se recomienda trabajar en un entorno virtual (Conda o venv).
+
+Opción 1 – Usando Conda
+# Crear y activar entorno
+conda create -n telcochurn python=3.10 -y
+conda activate telcochurn
+
+# Instalar dependencias
+pip install -r requirements.txt
+
+Opción 2 – Usando venv
+# Crear y activar entorno
+python -m venv .venv
+source .venv/bin/activate   # Mac/Linux
+.venv\Scripts\activate      # Windows
+
+# Instalar dependencias
+pip install -r requirements.txt
+
+5. Dependencias principales
+
+El archivo requirements.txt incluye todas las librerías necesarias.
+Algunas claves del proyecto son:
+
+pandas, numpy, scikit-learn → EDA, features y modelado
+
+matplotlib, seaborn → visualización
+
+streamlit → app web interactiva
+
+joblib → serialización del modelo
+
+pyngrok → deploy temporal en Colab
+
+6. Uso del proyecto
+6.1 Entrenamiento y serialización
+# Ejecutar notebook en Colab o localmente
+# Guardará el modelo como model.joblib
+
+6.2 Ejecutar la app en local
+streamlit run app.py
+
+
+Abrirá en http://localhost:8501
+
+6.3 Deploy temporal en Colab (ngrok)
+
+En Colab:
+
+!streamlit run app.py & npx localtunnel --port 8501
+
+
+Obtendrás una URL pública para acceder a la app.
